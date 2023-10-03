@@ -59,7 +59,7 @@ const Video = ({
 }) => {
   console.log(myVideo);
   return (
-    <div className="md:max-w-2xl w-full flex md:flex-row flex-col md:gap-6 gap-2 mx-auto ">
+    <div className="md:max-w-2xl w-full flex md:gap-6 gap-2 mx-auto ">
       {/* First user video */}
       <div className="vid-wrapper bg-slate-600 p-2 md:p-4 rounded-lg h-[150px] md:h-[250px] xl:h-[300px] w-full relative overflow-hidden">
         {!myVideoStarted && (
