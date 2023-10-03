@@ -61,7 +61,7 @@ const Video = ({
   return (
     <div className="md:max-w-2xl w-full flex md:gap-6 gap-2 mx-auto ">
       {/* First user video */}
-      <div className="vid-wrapper bg-slate-600 p-2 md:p-4 rounded-lg h-[180px] md:h-[250px] xl:h-[300px] w-full relative overflow-hidden">
+      <div className="vid-wrapper bg-slate-600 p-2 md:p-4 rounded-lg h-[220px] md:h-[250px] xl:h-[300px] w-full relative overflow-hidden">
         {!myVideoStarted && (
           <>
             <button
@@ -94,7 +94,7 @@ const Video = ({
         )}
       </div>
       {/* second user video */}
-      <div className="bg-slate-600 p-2 md:p-4 rounded-lg h-[180px] md:h-[250px] xl:h-[300px] w-full relative">
+      <div className="bg-slate-600 p-2 md:p-4 rounded-lg h-[220px] md:h-[250px] xl:h-[300px] w-full relative">
         {callAccepted && !callEnded ? (
           <>
             <h3 className="text-center capitalize">
