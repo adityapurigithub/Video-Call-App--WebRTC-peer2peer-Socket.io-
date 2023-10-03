@@ -24,23 +24,26 @@ const ContextProvider = ({ children }) => {
   const [call, setCall] = useState({});
   const [me, setMe] = useState("");
 
+  const [myVideoStarted, setMyVideoStarted] = useState(false);
+
   const myVideo = useRef();
   const userVideo = useRef();
   const connectionRef = useRef();
 
   //we call a useEffect hook that asks for permission to use the camera and microphone.
   useEffect(() => {
-    navigator.mediaDevices
-      .getUserMedia({ video: true, audio: true })
-      .then((currentStream) => {
-        setStream(currentStream);
-        setTimeout(() => (myVideo.current.srcObject = currentStream), 50);
-        //*imp--here i wasted 1-2 hrs..getting err cant read the property of undefined
-        //i have added setTimeout cause its not working immediately*
-      });
-    //Here, we set the current stream. Furthermore,
-    // since we want to populate the video iframe with the src of our stream we introduce a myVideo ref.
-
+    if (myVideoStarted) {
+      navigator.mediaDevices
+        .getUserMedia({ video: true, audio: true })
+        .then((currentStream) => {
+          setStream(currentStream);
+          setTimeout(() => (myVideo.current.srcObject = currentStream), 50);
+          //*imp--here i wasted 1-2 hrs..getting err cant read the property of undefined (current)
+          //i have added setTimeout cause its not working immediately*
+        });
+      //Here, we set the current stream. Furthermore,
+      // since we want to populate the video iframe with the src of our stream we introduce a myVideo ref.
+    }
     socket.on("me", (id) => {
       console.log(id);
       setMe(id);
@@ -48,7 +51,7 @@ const ContextProvider = ({ children }) => {
     socket.on("callUser", ({ from, name: callerName, signal }) => {
       setCall({ isReceivingCall: true, from, name: callerName, signal });
     });
-  }, []);
+  }, [myVideoStarted]);
 
   /*
   We set a boolean state to check if the call has been accepted. 
@@ -123,6 +126,8 @@ const ContextProvider = ({ children }) => {
         callUser,
         leaveCall,
         answerCall,
+        myVideoStarted,
+        setMyVideoStarted,
       }}
     >
       {children}
